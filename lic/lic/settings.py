@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mediagenerator',
     'web',
 )
 
@@ -49,7 +50,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'web.middleware.AuthenticationCheckMiddleware'
+    'mediagenerator.middleware.MediaMiddleware',
+    'web.middleware.AuthenticationCheckMiddleware',
+
 )
 
 ROOT_URLCONF = 'lic.urls'
@@ -103,3 +106,21 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # import local_settings
+MEDIA_BUNDLES = (
+    ('main.css',
+        'css/bootstrap.min.css'
+    ),    
+    ('angular.js',
+        {'filter': 'mediagenerator.filters.media_url.MediaURL'},
+        'js/angular/angular.min.js',      
+    ),
+    ('main.js',
+        'js/bootstrap.min.js',
+        'js/jquery.js',
+    ),
+)
+ROOT_MEDIA_FILTERS = {
+    'js': 'mediagenerator.filters.yuicompressor.YUICompressor',
+    'css': 'mediagenerator.filters.yuicompressor.YUICompressor',
+}
+YUICOMPRESSOR_PATH = os.path.join(os.path.dirname(__file__), '../tools', 'yuicompressor-2.4.6.jar')

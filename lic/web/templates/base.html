@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title> LIC | <small>{% block title %}Base{% endblock %}</small></title>
+        <meta name="description" content="Technomics solutions">
+        <meta name="author" content="Technomics solutions">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        {% include_media 'main.css' %}
+        {% include_media 'main.js' %}
+        {% include_media 'angular.js' %}
+        {% block extrahead %}{% endblock extrahead %}
+    </head>
+    <body id="{% block body_id %}base{% endblock body_id %}" {% block controller%} >
+        {% block body %}
+            
+        {% endblock %}
+    </body>
+</html>
+<!-- https://geethusuresh.wordpress.com/ -->

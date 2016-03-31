@@ -10,6 +10,8 @@ class HomeView(TemplateView):
 
     template_name = "home.html"
 
+    
+
 class Login(View):
 
     def post(self, request):
@@ -19,3 +21,12 @@ class Login(View):
         print "username = ", username
         print "password = ", password
         return HttpResponseRedirect("/")
+
+
+class Logout(View):
+
+    def get(self, request):
+
+        logout(request.user)
+
+
