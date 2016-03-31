@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load media %}
 <html>
     <head>
         <meta charset="utf-8">
@@ -9,13 +10,19 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         {% include_media 'main.css' %}
         {% include_media 'main.js' %}
-        {% include_media 'angular.js' %}
         {% block extrahead %}{% endblock extrahead %}
     </head>
-    <body id="{% block body_id %}base{% endblock body_id %}" {% block controller%} >
-        {% block body %}
-            
-        {% endblock %}
+    <body id="{% block body_id %}base{% endblock body_id %}" {% block controller%} {% endblock%}>
+        <div class="wrapper">
+            {% block header %}
+                {% include "header.html" %}
+            {% endblock %}
+            {% block body %}
+
+            {% endblock %}
+            {% block footer %}
+            {% endblock %}
+        </div>
     </body>
 </html>
 <!-- https://geethusuresh.wordpress.com/ -->

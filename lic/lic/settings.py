@@ -15,7 +15,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+fillpath = lambda x: os.path.join(os.path.dirname(__file__), x)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -38,10 +38,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mediagenerator',
-    'web',
+    'web'
 )
 
 MIDDLEWARE_CLASSES = (
+    'mediagenerator.middleware.MediaMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -50,7 +51,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'mediagenerator.middleware.MediaMiddleware',
     'web.middleware.AuthenticationCheckMiddleware',
 
 )
@@ -105,18 +105,25 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_DEV_MODE = True
+DEV_MEDIA_URL = '/devstatic/'
+PRODUCTION_MEDIA_URL = '/static/'
+
+GLOBAL_MEDIA_DIRS = ()
+
 # import local_settings
 MEDIA_BUNDLES = (
     ('main.css',
         'css/bootstrap.min.css'
     ),    
-    ('angular.js',
+    ('main_angular.js',
         {'filter': 'mediagenerator.filters.media_url.MediaURL'},
-        'js/angular/angular.min.js',      
     ),
     ('main.js',
         'js/bootstrap.min.js',
         'js/jquery.js',
+        'js/angular/angular.min.js',
+
     ),
 )
 ROOT_MEDIA_FILTERS = {
@@ -124,3 +131,5 @@ ROOT_MEDIA_FILTERS = {
     'css': 'mediagenerator.filters.yuicompressor.YUICompressor',
 }
 YUICOMPRESSOR_PATH = os.path.join(os.path.dirname(__file__), '../tools', 'yuicompressor-2.4.6.jar')
+
+GENERATED_MEDIA_ROOT = fillpath('../_generated_media')
